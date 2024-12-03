@@ -1,16 +1,21 @@
 FROM ubuntu:latest AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
+# Instalar Java e Maven
+RUN apt-get update && apt-get install -y openjdk-17-jdk maven
+
+# Copiar o projeto
 COPY . .
 
-RUN apt-get install maven -y
-RUN mvn clean install
+# Instalar dependências e compilar o projeto
+RUN mvn clean install -DskipTests
 
 FROM openjdk:17-jdk-slim
 
+# Expor porta da aplicação
 EXPOSE 8080
 
-COPY --from=build /target/food-0.0.1-SNAPSHOT.jar app.jar
+# Copiar o jar gerado
+COPY --from=build target/*.jar app.jar
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+# Comando de entrada
+ENTRYPOINT ["java", "-jar", "app.jar"]
