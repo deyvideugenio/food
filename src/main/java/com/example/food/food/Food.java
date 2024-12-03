@@ -1,4 +1,4 @@
-package com.example.cardapio.food;
+package com.example.food.food;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,7 +7,6 @@ import lombok.*;
 @Entity(name = "foods")
 
 @Setter
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

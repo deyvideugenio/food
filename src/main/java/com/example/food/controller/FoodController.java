@@ -1,9 +1,9 @@
 package com.example.food.controller;
 
-import com.example.food.Food;
-import com.example.food.FoodRepository;
-import com.example.food.FoodRequestDTO;
-import com.example.food.FoodResponseDTO;
+import com.example.food.food.Food;
+import com.example.food.food.FoodRepository;
+import com.example.food.food.FoodRequestDTO;
+import com.example.food.food.FoodResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,10 +29,9 @@ public class FoodController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @GetMapping
     public List<FoodResponseDTO> getALL() {
-        List<FoodResponseDTO> foodList = repository.findAll().stream()
+        return repository.findAll().stream()
                 .map(FoodResponseDTO::new)
                 .collect(Collectors.toList());
-        return foodList;
     }
 
     @PutMapping("/{id}")
